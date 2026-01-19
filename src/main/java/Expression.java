@@ -1,7 +1,5 @@
-package PACKAGE_NAME;
-
 /**
- *packageName    : PACKAGE_NAME
+ * packageName    : PACKAGE_NAME
  * fileName       : Expression
  * author         : AngryPig123
  * date           : 26. 1. 18.
@@ -10,5 +8,7 @@ package PACKAGE_NAME;
  * DATE              AUTHOR             NOTE
  * -----------------------------------------------------------
  * 26. 1. 18.        AngryPig123       최초 생성
- */public interface Expression {
+ */
+public interface Expression {
+    Money reduce(Bank bank, String to);
 }
