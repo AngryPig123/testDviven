@@ -1,5 +1,3 @@
-# 난이도 낮춘 연습 과제 3개 (요구사항만)
-
 ## 과제 1) “계산은 나중에” (지연 평가 맛보기)
 
 ### 요구사항
@@ -31,3 +29,99 @@
 ### 제한
 - 할인 규칙은 확장 가능해야 한다(새 할인 추가 시 장바구니 수정 최소화).
 
+
+---
+
+# 웹 인증 흐름 예제 요구사항: 2단계 인증(2FA) + 세션 단계 분리
+
+## 목표
+로그인 성공 이후 **추가 인증(2단계)** 이 필요한 사용자만 2FA를 거치게 하고, 그 전까지는 **보호 자원 접근을 막는** 인증 흐름을 구현한다.
+
+---
+
+## 1) 로그인 1단계(아이디/비밀번호)
+
+### 요청
+- `POST /login`
+- Body: `{ "username": "...", "password": "..." }`
+
+### 성공 조건
+- 자격이 올바르면 서버는 **임시 세션(PreAuth)** 을 발급한다.
+- 응답: `200 OK`
+- 응답 바디:
+   - `{ "next": "2FA_REQUIRED" }` (mfaEnabled=true인 사용자)
+   - `{ "next": "AUTHENTICATED" }` (mfaEnabled=false인 사용자)
+
+### 실패 조건
+- 자격이 틀리면 `401 Unauthorized`
+
+---
+
+## 2) 2단계 인증 대상 판별
+
+- 사용자 속성 `mfaEnabled=true`인 경우만 2FA가 필요하다.
+- `mfaEnabled=false`면 로그인 1단계 성공 시 즉시 **정상 세션(Auth)** 으로 전환된다.
+
+---
+
+## 3) 2FA 검증
+
+### 요청
+- `POST /mfa/verify`
+- Body: `{ "code": "123456" }` (6자리)
+
+### 검증 규칙
+- `code`는 **발급 시각 기준 2분 내**에만 유효
+- 같은 `PreAuth` 세션에서 **최대 5회**까지 시도 가능
+- 5회 초과 시 아래 중 하나로 통일해서 반환한다:
+   - `423 Locked`
+   - 또는 `429 Too Many Requests`
+
+### 성공 응답
+- 성공 시 **정상 세션(Auth)** 으로 전환
+- `200 OK` + `{ "next": "AUTHENTICATED" }`
+
+### 실패 응답
+- 실패 시 `400 Bad Request` + 아래 중 하나:
+   - `{ "error": "INVALID_CODE" }`
+   - `{ "error": "EXPIRED_CODE" }`
+   - `{ "error": "LOCKED" }`
+
+---
+
+## 4) 접근 제어(핵심)
+
+### 보호 자원
+- `GET /me`
+- `GET /orders`
+
+### 규칙
+- **정상 세션(Auth)** 만 접근 가능
+   - 아니면 `401 Unauthorized`
+- **PreAuth** 세션으로는 보호 자원 접근 불가
+   - `403 Forbidden` + `{ "error": "MFA_REQUIRED" }`
+
+---
+
+## 5) 로그아웃
+
+### 요청
+- `POST /logout`
+
+### 동작
+- 세션 종류와 무관하게 서버는 세션을 무효화한다.
+
+### 응답
+- `204 No Content`
+
+---
+
+## 테스트 요구사항(필수)
+
+아래 시나리오를 테스트로 먼저 고정한다.
+
+1. `mfaEnabled=false` 사용자는 `/login` 성공 후 바로 `/me` 접근 가능
+2. `mfaEnabled=true` 사용자는 `/login` 성공 후 `/me` 접근 시 `403` + `MFA_REQUIRED`
+3. `mfaEnabled=true` 사용자는 올바른 코드로 `/mfa/verify` 성공 후 `/me` 접근 가능
+4. 코드 만료(2분 경과)면 `EXPIRED_CODE`
+5. 코드 5회 실패 후 6회째부터 `LOCKED`
