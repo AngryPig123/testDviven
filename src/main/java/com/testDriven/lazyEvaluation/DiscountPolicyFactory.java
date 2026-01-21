@@ -1,10 +1,10 @@
-package lazyEvaluation;
+package com.testDriven.lazyEvaluation;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * packageName    : lazyEvaluation
+ * packageName    : com.testDriven.lazyEvaluation
  * fileName       : DiscountPolicyFactory
  * author         : AngryPig123
  * date           : 26. 1. 21.

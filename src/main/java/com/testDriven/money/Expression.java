@@ -1,8 +1,8 @@
-package money;
+package com.testDriven.money;
 
 /**
  * packageName    : PACKAGE_NAME
- * fileName       : money.Expression
+ * fileName       : com.testDriven.money.Expression
  * author         : AngryPig123
  * date           : 26. 1. 18.
  * description    :

@@ -1,10 +1,10 @@
-package money;
+package com.testDriven.money;
 
 import java.util.Hashtable;
 
 /**
  * packageName    : PACKAGE_NAME
- * fileName       : money.Bank
+ * fileName       : com.testDriven.money.Bank
  * author         : AngryPig123
  * date           : 26. 1. 18.
  * description    :
@@ -19,9 +19,9 @@ public class Bank {
     /*
         4) 환산은 Bank가 책임진다 (환율 테이블 필요)
             •	서로 다른 통화를 한 통화로 “줄이기(reduce)” 위해서는 환율(rate) 이 필요하다.
-                    •	환율은 money.Bank(또는 그에 준하는 객체)가 알고/관리한다.
-            •	예: money.Bank.addRate("CHF","USD", 2) → (책 예제에선 2:1 형태로 등장)
-                    •	money.Bank.reduce(expression, "USD") 처럼 목표 통화(target currency) 를 지정해 결과를 얻는다
+                    •	환율은 com.testDriven.money.Bank(또는 그에 준하는 객체)가 알고/관리한다.
+            •	예: com.testDriven.money.Bank.addRate("CHF","USD", 2) → (책 예제에선 2:1 형태로 등장)
+                    •	com.testDriven.money.Bank.reduce(expression, "USD") 처럼 목표 통화(target currency) 를 지정해 결과를 얻는다
      */
 
     public Money reduce(Expression source, String to) {

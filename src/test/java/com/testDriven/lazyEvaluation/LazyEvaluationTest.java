@@ -1,4 +1,4 @@
-package lazyEvaluation;
+package com.testDriven.lazyEvaluation;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * packageName    : lazyEvaluation
+ * packageName    : com.testDriven.lazyEvaluation
  * fileName       : LazyEvaluationTest
  * author         : AngryPig123
  * date           : 26. 1. 21.

@@ -1,10 +1,7 @@
-package lazyEvaluation;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.testDriven.lazyEvaluation;
 
 /**
- * packageName    : lazyEvaluation
+ * packageName    : com.testDriven.lazyEvaluation
  * fileName       : Bucket
  * author         : AngryPig123
  * date           : 26. 1. 21.

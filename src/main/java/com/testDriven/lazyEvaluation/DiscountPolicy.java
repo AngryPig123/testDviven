@@ -1,7 +1,7 @@
-package lazyEvaluation;
+package com.testDriven.lazyEvaluation;
 
 /**
- * packageName    : lazyEvaluation
+ * packageName    : com.testDriven.lazyEvaluation
  * fileName       : Discount
  * author         : AngryPig123
  * date           : 26. 1. 21.

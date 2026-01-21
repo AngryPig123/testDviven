@@ -1,4 +1,4 @@
-package money;
+package com.testDriven.money;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -27,16 +27,16 @@ public class MoneyTest {
                     •	예: 5 USD * 2 = 10 USD
             •	예: 5 CHF * 2 = 10 CHF
 
-        3) 서로 다른 통화의 합은 “즉시 계산”이 아니라 “표현(money.Expression)”으로 남긴다
+        3) 서로 다른 통화의 합은 “즉시 계산”이 아니라 “표현(com.testDriven.money.Expression)”으로 남긴다
             •	USD + CHF 같은 연산은 그 자리에서 단일 Money로 확정되지 않는다.
-            •	대신 “합(money.Sum)” 같은 표현 객체(money.Expression) 로 만들어서,
+            •	대신 “합(com.testDriven.money.Sum)” 같은 표현 객체(com.testDriven.money.Expression) 로 만들어서,
             •	나중에 “어느 통화로 환산할지”를 알고 있는 컴포넌트가 계산한다.
 
         4) 환산은 Bank가 책임진다 (환율 테이블 필요)
             •	서로 다른 통화를 한 통화로 “줄이기(reduce)” 위해서는 환율(rate) 이 필요하다.
-                    •	환율은 money.Bank(또는 그에 준하는 객체)가 알고/관리한다.
-            •	예: money.Bank.addRate("CHF","USD", 2) → (책 예제에선 2:1 형태로 등장)
-                    •	money.Bank.reduce(expression, "USD") 처럼 목표 통화(target currency) 를 지정해 결과를 얻는다.
+                    •	환율은 com.testDriven.money.Bank(또는 그에 준하는 객체)가 알고/관리한다.
+            •	예: com.testDriven.money.Bank.addRate("CHF","USD", 2) → (책 예제에선 2:1 형태로 등장)
+                    •	com.testDriven.money.Bank.reduce(expression, "USD") 처럼 목표 통화(target currency) 를 지정해 결과를 얻는다.
 
         5) 환산은 목표 통화가 무엇인지에 따라 결과가 달라진다
             •	같은 합이라도 USD로 reduce하느냐 CHF로 reduce하느냐에 따라 결과가 달라질 수 있다.

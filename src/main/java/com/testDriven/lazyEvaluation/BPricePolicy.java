@@ -1,8 +1,8 @@
-package lazyEvaluation;
+package com.testDriven.lazyEvaluation;
 
 /**
- * packageName    : lazyEvaluation
- * fileName       : ADicsountPolicy
+ * packageName    : com.testDriven.lazyEvaluation
+ * fileName       : Policy
  * author         : AngryPig123
  * date           : 26. 1. 21.
  * description    :
@@ -11,14 +11,14 @@ package lazyEvaluation;
  * -----------------------------------------------------------
  * 26. 1. 21.        AngryPig123       최초 생성
  */
-public class ADiscountPolicy implements DiscountPolicy {
+public class BPricePolicy implements PricePolicy {
 
-    @Override
-    public long discount(long price) {
-        if (price < 1000) {
-            return price;
+    public long reduce(long price) {
+        long total = price % 100;
+        if (total != 0) {
+            return (price + 99) / 100 * 100;
         } else {
-            return price - 1000;
+            return price;
         }
     }
 
