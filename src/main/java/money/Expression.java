@@ -1,6 +1,8 @@
+package money;
+
 /**
  * packageName    : PACKAGE_NAME
- * fileName       : Expression
+ * fileName       : money.Expression
  * author         : AngryPig123
  * date           : 26. 1. 18.
  * description    :

@@ -1,6 +1,8 @@
+package money;
+
 /**
  * packageName    : PACKAGE_NAME
- * fileName       : Money
+ * fileName       : money.Money
  * author         : AngryPig123
  * date           : 26. 1. 18.
  * description    :
@@ -54,7 +56,7 @@ public class Money implements Expression {
 
     @Override
     public String toString() {
-        return "Money{" +
+        return "money.Money{" +
                 "amount=" + amount +
                 ", currency='" + currency + '\'' +
                 '}';
